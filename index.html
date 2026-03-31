@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HappyTask Dashboard Updates — Developer Handoff</title>
+<title>HappyTask Dashboard Updates  -  Developer Handoff</title>
 <style>
 :root {
   --orange: #F7880C;
@@ -285,7 +285,7 @@ code {
 <div class="container">
 
   <div class="intro">
-    <p><strong>What's in this doc:</strong> Four updates to the admin and participant dashboards. Changes 1–3 are quick edits to existing code. Change 4 is a new admin file we built using your production code as the base — drop-in replacement with a new Program Editor feature added.</p>
+    <p><strong>What's in this doc:</strong> Four updates to the admin and participant dashboards. Changes 1–3 are quick edits to existing code. Change 4 is a new admin file we built using your production code as the base  -  drop-in replacement with a new Program Editor feature added.</p>
   </div>
 
   <!-- ═══════════════ CHANGE 1 ═══════════════ -->
@@ -307,7 +307,7 @@ code {
       </div>
 
       <p><em>Note: The image above includes notes explaining how to find this button in the live onboarding flow.</em></p>
-      <p>Once linked, when a participant clicks this button after onboarding, the dashboard opens and the program starts automatically on Day 1 — no setup screen, no date picker needed (see Change 2).</p>
+      <p>Once linked, when a participant clicks this button after onboarding, the dashboard opens and the program starts automatically on Day 1  -  no setup screen, no date picker needed (see Change 2).</p>
     </div>
   </div>
 
@@ -320,7 +320,7 @@ code {
     </div>
     <div class="change-body">
       <p><strong>File:</strong> Participant dashboard</p>
-      <p><strong>What:</strong> Remove the setup screen below. When a participant loads the dashboard for the first time, the program starts immediately — no date picker, no "Start My Program" button.</p>
+      <p><strong>What:</strong> Remove the setup screen below. When a participant loads the dashboard for the first time, the program starts immediately  -  no date picker, no "Start My Program" button.</p>
 
       <div class="screenshot-wrapper">
         <div class="screenshot-label">Remove This <span class="screenshot-arrow">↓</span></div>
@@ -331,7 +331,7 @@ code {
 
       <p><strong>How:</strong> In the participant dashboard's <code>init()</code> function, replace the setup screen logic with:</p>
 
-      <div class="code-block"><span class="comment">// Skip setup screen — auto-start on first visit</span>
+      <div class="code-block"><span class="comment">// Skip setup screen  -  auto-start on first visit</span>
 <span class="keyword">if</span> (!state.startDate) {
   state.startDate = getLasVegasDateString();
   saveState();
@@ -353,8 +353,8 @@ initDashboard();</div>
     <div class="change-body">
       <p><strong>Two things to remove:</strong></p>
 
-      <p><strong>A) Participant dashboard — remove the Campfire tab</strong></p>
-      <p>Delete the Campfire tab button from the nav bar. The panel HTML can stay or be removed — either way it becomes unreachable.</p>
+      <p><strong>A) Participant dashboard  -  remove the Campfire tab</strong></p>
+      <p>Delete the Campfire tab button from the nav bar. The panel HTML can stay or be removed  -  either way it becomes unreachable.</p>
 
       <div class="screenshot-wrapper">
         <div class="screenshot-label">Remove This <span class="screenshot-arrow">↓</span></div>
@@ -363,7 +363,7 @@ initDashboard();</div>
         </div>
       </div>
 
-      <p><strong>B) Admin dashboard — remove Group Settings</strong></p>
+      <p><strong>B) Admin dashboard  -  remove Group Settings</strong></p>
       <p>Remove the "Group Settings" collapsible panel. Also replace the "All Groups" dropdown filter with an "All Days" dropdown (Day 1–14 + Graduated) so admins can filter participants by which program day they're on.</p>
 
       <div class="screenshot-wrapper">
@@ -401,7 +401,7 @@ initDashboard();</div>
         <iframe src="https://www.loom.com/embed/62c9ece6e36048879470c61666f6d3b5" allowfullscreen></iframe>
       </div>
 
-      <p>The Program Editor lets admins edit daily tasks for all 14 days — add/remove tasks, edit descriptions, build guide content with rich blocks (headings, templates, step buttons, Q&A, warnings), reorder with drag-and-drop, preview in participant view, and publish live.</p>
+      <p>The Program Editor lets admins edit daily tasks for all 14 days  -  add/remove tasks, edit descriptions, build guide content with rich blocks (headings, templates, step buttons, Q&A, warnings), reorder with drag-and-drop, preview in participant view, and publish live.</p>
 
       <div class="connect-section">
         <h4>What still needs to be wired up:</h4>
