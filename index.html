@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HappyTask Dashboard Updates — Developer Handoff</title>
+<style>
+:root {
+  --orange: #F7880C;
+  --orange-light: #fff4e6;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-500: #6b7280;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --green: #22c55e;
+  --green-bg: #dcfce7;
+  --green-text: #15803d;
+  --red: #ef4444;
+  --red-bg: #fee2e2;
+  --red-text: #b91c1c;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--gray-50);
+  color: var(--gray-800);
+  line-height: 1.6;
+  font-size: 15px;
+}
+.header {
+  background: white;
+  border-bottom: 3px solid var(--orange);
+  padding: 20px 32px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(247,136,12,0.12);
+}
+.header h1 {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+.header p {
+  color: var(--gray-500);
+  font-size: 14px;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+.intro {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  border-left: 4px solid var(--orange);
+}
+.intro p {
+  font-size: 15px;
+  color: var(--gray-700);
+}
+.intro strong { color: var(--gray-900); }
+
+.change-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+.change-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 24px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+}
+.change-number {
+  background: var(--orange);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.change-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--gray-900);
+}
+.change-badge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+.badge-simple { background: var(--green-bg); color: var(--green-text); }
+.badge-new { background: var(--orange-light); color: var(--orange); }
+.change-body { padding: 24px; }
+.change-body p { margin-bottom: 12px; color: var(--gray-700); }
+.change-body p:last-child { margin-bottom: 0; }
+
+.screenshot-wrapper {
+  margin: 16px 0;
+}
+.screenshot-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--red);
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 8px 8px 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.screenshot-arrow {
+  font-size: 16px;
+  animation: bounce 1s infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+.screenshot {
+  border: 2px solid var(--red);
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  position: relative;
+}
+.screenshot img {
+  width: 100%;
+  display: block;
+}
+
+.file-tag {
+  display: inline-block;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  color: var(--gray-700);
+}
+
+code {
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-size: 13px;
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  color: var(--orange);
+}
+
+.code-block {
+  background: var(--gray-900);
+  color: #e5e7eb;
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-family: 'SF Mono', Monaco, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: auto;
+  margin: 12px 0;
+  white-space: pre;
+}
+.code-block .comment { color: #6b7280; }
+.code-block .keyword { color: #f59e0b; }
+
+.loom-embed {
+  border: 2px solid var(--gray-200);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 16px 0;
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+.loom-embed iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.connect-section {
+  background: var(--orange-light);
+  border: 1.5px solid #fcd29f;
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin-top: 16px;
+}
+.connect-section h4 {
+  font-size: 14px;
+  font-weight: 800;
+  color: #923910;
+  margin-bottom: 12px;
+}
+.connect-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: #7c2d12;
+}
+.connect-item:last-child { margin-bottom: 0; }
+.connect-num {
+  background: var(--orange);
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.files-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  font-size: 14px;
+}
+.files-table th {
+  text-align: left;
+  padding: 10px 14px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  font-weight: 800;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray-500);
+}
+.files-table td {
+  padding: 10px 14px;
+  border: 1px solid var(--gray-200);
+  color: var(--gray-700);
+}
+.files-table td:first-child { font-family: 'SF Mono', Monaco, Consolas, monospace; font-size: 13px; font-weight: 600; }
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--gray-200);
+  margin: 32px 0;
+}
+
+.arrow { color: var(--orange); font-weight: 800; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>HappyTask Dashboard Updates</h1>
+  <p>4 changes. 3 are simple edits. 1 is a new feature built from your live code.</p>
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    <p><strong>What's in this doc:</strong> Four updates to the admin and participant dashboards. Changes 1–3 are quick edits to existing code. Change 4 is a new admin file we built using your production code as the base — drop-in replacement with a new Program Editor feature added.</p>
+  </div>
+
+  <!-- ═══════════════ CHANGE 1 ═══════════════ -->
+  <div class="change-card">
+    <div class="change-header">
+      <div class="change-number">1</div>
+      <div class="change-title">Link the Dashboard to the Onboarding Button</div>
+      <span class="change-badge badge-simple">Simple Edit</span>
+    </div>
+    <div class="change-body">
+      <p><strong>File:</strong> New onboarding flow (final step)</p>
+      <p><strong>What:</strong> At the end of the new live onboarding, there's a button participants click to access their dashboard. Right now it isn't wired up. Link it to the participant dashboard URL so clicking it opens the dashboard and the 14-day program auto-starts.</p>
+
+      <div class="screenshot-wrapper">
+        <div class="screenshot-label">Wire This Up <span class="screenshot-arrow">↓</span></div>
+        <div class="screenshot">
+          <img src="https://www.dropbox.com/scl/fi/awvvibphu6e94as5k5std/Screenshot-2026-03-31-at-1.36.46-PM.png?rlkey=7b2schkkhtlr1l3cm5ppv6l5i&st=8hzel1cl&raw=1" alt="Onboarding final button to wire up">
+        </div>
+      </div>
+
+      <p><em>Note: The image above includes notes explaining how to find this button in the live onboarding flow.</em></p>
+      <p>Once linked, when a participant clicks this button after onboarding, the dashboard opens and the program starts automatically on Day 1 — no setup screen, no date picker needed (see Change 2).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════ CHANGE 2 ═══════════════ -->
+  <div class="change-card">
+    <div class="change-header">
+      <div class="change-number">2</div>
+      <div class="change-title">Auto-Start the 14-Day Program</div>
+      <span class="change-badge badge-simple">Simple Edit</span>
+    </div>
+    <div class="change-body">
+      <p><strong>File:</strong> Participant dashboard</p>
+      <p><strong>What:</strong> Remove the setup screen below. When a participant loads the dashboard for the first time, the program starts immediately — no date picker, no "Start My Program" button.</p>
+
+      <div class="screenshot-wrapper">
+        <div class="screenshot-label">Remove This <span class="screenshot-arrow">↓</span></div>
+        <div class="screenshot">
+          <img src="https://www.dropbox.com/scl/fi/2k3bfba3200uas06p719i/Remove-This-Setup-Screen.png?rlkey=sa2722tlgojx57jto0jwji3wi&st=awkeml4x&raw=1" alt="Setup screen to remove">
+        </div>
+      </div>
+
+      <p><strong>How:</strong> In the participant dashboard's <code>init()</code> function, replace the setup screen logic with:</p>
+
+      <div class="code-block"><span class="comment">// Skip setup screen — auto-start on first visit</span>
+<span class="keyword">if</span> (!state.startDate) {
+  state.startDate = getLasVegasDateString();
+  saveState();
+}
+document.getElementById('setup-screen').style.display = 'none';
+initDashboard();</div>
+
+      <p>That's it. Program starts the moment they view the dashboard.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════ CHANGE 3 ═══════════════ -->
+  <div class="change-card">
+    <div class="change-header">
+      <div class="change-number">3</div>
+      <div class="change-title">Remove Campfire Tab + Group Settings</div>
+      <span class="change-badge badge-simple">Simple Edit</span>
+    </div>
+    <div class="change-body">
+      <p><strong>Two things to remove:</strong></p>
+
+      <p><strong>A) Participant dashboard — remove the Campfire tab</strong></p>
+      <p>Delete the Campfire tab button from the nav bar. The panel HTML can stay or be removed — either way it becomes unreachable.</p>
+
+      <div class="screenshot-wrapper">
+        <div class="screenshot-label">Remove This <span class="screenshot-arrow">↓</span></div>
+        <div class="screenshot">
+          <img src="https://www.dropbox.com/scl/fi/6mlop8p9wovuhozskghfg/Campfire-Tab.png?rlkey=c15khsjjsog25g1fyzmhua9ub&st=pdtfpn5q&raw=1" alt="Campfire tab to remove">
+        </div>
+      </div>
+
+      <p><strong>B) Admin dashboard — remove Group Settings</strong></p>
+      <p>Remove the "Group Settings" collapsible panel. Also replace the "All Groups" dropdown filter with an "All Days" dropdown (Day 1–14 + Graduated) so admins can filter participants by which program day they're on.</p>
+
+      <div class="screenshot-wrapper">
+        <div class="screenshot-label">Remove This <span class="screenshot-arrow">↓</span></div>
+        <div class="screenshot">
+          <img src="https://www.dropbox.com/scl/fi/zrr5ya2hbw6chcfirygag/Group-Settings-Dropdown.png?rlkey=at3ha0fnxvz1a5ordxq0lwtkz&st=r48qkc8q&raw=1" alt="Group Settings to remove">
+        </div>
+      </div>
+
+      <p><em>Note: Both of these removals are already done in the new admin file (Change 4).</em></p>
+    </div>
+  </div>
+
+  <!-- ═══════════════ CHANGE 4 ═══════════════ -->
+  <div class="change-card">
+    <div class="change-header">
+      <div class="change-number">4</div>
+      <div class="change-title">Program Editor (New Admin File)</div>
+      <span class="change-badge badge-new">New Feature</span>
+    </div>
+    <div class="change-body">
+      <p><strong>File provided:</strong> <span class="file-tag">happytask-admin-dev-update.html</span> <a href="https://www.dropbox.com/scl/fi/vgcoydlu2e8dwen7b6qz3/happytask-admin-dev-update.html?rlkey=4t24ajlbkkl50ojbfq5yqofp1&st=tgzkei68&dl=1" style="display:inline-flex;align-items:center;gap:5px;background:var(--orange);color:white;font-size:12px;font-weight:700;padding:5px 14px;border-radius:6px;text-decoration:none;margin-left:8px;transition:background 0.15s;" onmouseover="this.style.background='#d96d00'" onmouseout="this.style.background='#F7880C'">⬇ Download File</a></p>
+
+      <p>This file was built directly from your live admin source code pulled from GitHub. Your code is untouched. We only added three things on top:</p>
+
+      <ul style="margin:12px 0 12px 20px;color:var(--gray-700);">
+        <li>Group Settings panel removed</li>
+        <li>Day filter dropdown (replaces Group dropdown)</li>
+        <li>Program Editor panel + all its JavaScript</li>
+      </ul>
+
+      <p><strong>Watch this 60-second walkthrough to see it in action:</strong></p>
+
+      <div class="loom-embed">
+        <iframe src="https://www.loom.com/embed/62c9ece6e36048879470c61666f6d3b5" allowfullscreen></iframe>
+      </div>
+
+      <p>The Program Editor lets admins edit daily tasks for all 14 days — add/remove tasks, edit descriptions, build guide content with rich blocks (headings, templates, step buttons, Q&A, warnings), reorder with drag-and-drop, preview in participant view, and publish live.</p>
+
+      <div class="connect-section">
+        <h4>What still needs to be wired up:</h4>
+
+        <div class="connect-item">
+          <div class="connect-num">1</div>
+          <div>
+            <strong>Server endpoint to store published configs</strong><br>
+            When an admin clicks "Publish," the Program Editor sends the updated task config as a JSON POST. You need a server endpoint that saves this and serves it back on GET. How you store it (file, database, etc.) is up to you.
+          </div>
+        </div>
+
+        <div class="connect-item">
+          <div class="connect-num">2</div>
+          <div>
+            <strong>Participant dashboard reads the published config on load</strong><br>
+            When a participant opens their dashboard, it should fetch the published config from that same endpoint and use it to override the default task data. If the server is unreachable, fall back to a cached version in localStorage so the dashboard still works offline.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ═══════════════ FILES TABLE ═══════════════ -->
+  <table class="files-table">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>What It Is</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>happytask-admin-dev-update.html</td>
+        <td>Drop-in replacement for your admin dashboard. Your code + Program Editor added.</td>
+      </tr>
+      <tr>
+        <td>DEVELOPER-HANDOFF.html</td>
+        <td>This document.</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+</body>
+</html>
